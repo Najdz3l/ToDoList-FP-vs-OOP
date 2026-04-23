@@ -1,0 +1,15 @@
+services:
+  frontend:
+    container_name: ToDo-List-Frontend
+    build:
+      context: .
+      dockerfile: Dockerfile-Frontend
+    ports:
+      - "8080:8080"
+    environment:
+      # Hot Reload env variables
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    volumes:
+      - .:/ToDoApp
+      - /ToDoApp/node_modules
