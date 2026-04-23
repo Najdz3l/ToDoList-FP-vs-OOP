@@ -2,8 +2,8 @@ services:
   frontend:
     container_name: ToDo-List-Frontend
     build:
-      context: .
-      dockerfile: Dockerfile-Frontend
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     environment:
@@ -11,5 +11,5 @@ services:
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
     volumes:
-      - .:/ToDoApp
+      - ./frontend:/ToDoApp
       - /ToDoApp/node_modules
