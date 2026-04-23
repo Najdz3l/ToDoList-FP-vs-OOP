@@ -1,0 +1,23 @@
+footer {
+  margin-top: auto;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  color: var(--text);
+  font-size: 14px;
+}
+
+footer p {
+  margin: 8px 0;
+}
+
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: #d8b4fe;
+}

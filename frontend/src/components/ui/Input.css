@@ -1,0 +1,23 @@
+.search-input,
+.input {
+  background-color: var(--code-bg);
+  color: var(--text-h);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-family: var(--sans);
+  font-size: 15px;
+  transition: all 0.3s;
+  min-width: 250px;
+}
+
+.search-input:focus,
+.input:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(170, 59, 255, 0.2);
+}
+
+.search-input::placeholder {
+  color: var(--text);
+}
