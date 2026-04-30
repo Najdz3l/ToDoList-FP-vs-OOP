@@ -1,9 +1,9 @@
 import { ButtonSvg } from "../ui/ButtonSvg";
 import { Select } from "../ui/Select";
 import { Input } from "../ui/Input";
-import "./TodoFilters.css";
+import "./Filters.css";
 
-export const TodoFilters = () => {
+export const Filters = () => {
   const filterOptions = [
     { value: "all", label: "All" },
     { value: "active", label: "Active" },

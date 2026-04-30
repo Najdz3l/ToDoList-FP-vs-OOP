@@ -1,13 +1,13 @@
-import "./TodoExportModal.css";
+import "./ExportModal.css";
 import { Button } from "../ui/Button";
-import { Modal } from "../modals/Modal";
+import { Modal } from "./Modal";
 
-interface TodoExportModalProps {
+interface ExportModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const TodoExportModal = ({ isOpen, onClose: onClose }: TodoExportModalProps) => {
+export const ExportModal = ({ isOpen, onClose: onClose }: ExportModalProps) => {
   if (!isOpen) return null;
 
   return (
@@ -23,9 +23,9 @@ export const TodoExportModal = ({ isOpen, onClose: onClose }: TodoExportModalPro
           <div className="modal-body">
             <p>Choose the format you want to export your tasks to:</p>
             <div className="export-buttons">
-              <Button buttonText="JSON" buttonAltText="Export as JSON" />
-              <Button buttonText="CSV" buttonAltText="Export as CSV" />
-              <Button buttonText="TXT" buttonAltText="Export as TXT" />
+              <Button>JSON</Button>
+              <Button>CSV</Button>
+              <Button>TXT</Button>
             </div>
           </div>
         </div>

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Button } from "../ui/Button";
-import { TodoExportModal } from "./TodoExportModal";
+import { ExportModal } from "../modals/ExportModal";
 
-export const TodoExport = () => {
+export const Export = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOnExport = (e: React.MouseEvent<HTMLElement>) => {
@@ -12,9 +12,9 @@ export const TodoExport = () => {
 
   return (
     <div className="todo-export">
-      <Button buttonText="Export" buttonAltText="Export Button" onClick={() => handleOnExport} />
+      <Button onClick={() => handleOnExport}>Export</Button>
 
-      <TodoExportModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <ExportModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 };
