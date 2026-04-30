@@ -1,15 +1,19 @@
 import type React from "react";
-import type { ReactNode } from "react";
-import { Footer } from "./Footer";
+import { Footer } from "@components/layout/Footer";
+import { Header } from "@components/layout/Header";
+import { Navbar } from "@components/layout/Navbar";
+import { Table } from "@components/table/Table";
 
-interface MainLayoutProps {
-  children: ReactNode;
-}
+// interface MainLayoutProps {
+//   children: ReactNode;
+// }
 
-export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+export const MainLayout: React.FC = () => {
   return (
     <>
-      {children}
+      <Header />
+      <Navbar />
+      <Table />
       <Footer />
     </>
   );

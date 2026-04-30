@@ -1,14 +1,14 @@
 import { Badge } from "../ui/Badge";
 import { IconButton } from "../ui/IconButton";
 
-interface TodoRowProps {
+interface RowProps {
   date: string;
   title: string;
   description: string;
   status: string;
 }
 
-export const TodoRow = ({ date, title, description, status }: TodoRowProps) => {
+export const Row = ({ date, title, description, status }: RowProps) => {
   return (
     <tr>
       <td>{date}</td>
