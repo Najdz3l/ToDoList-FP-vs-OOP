@@ -1,30 +1,32 @@
-import { Badge } from "../ui/Badge";
-import { IconButton } from "../ui/IconButton";
+import { Badge } from "@components/ui/Badge";
+import { EditTask } from "@components/actions/EditTask";
+import { DeleteTask } from "@components/actions/DeleteTask";
+import { ToggleTaskStatus } from "@components/actions/ToggleTaskStatus";
 
 interface RowProps {
   date: string;
   title: string;
-  description: string;
   status: string;
+  taskId: number;
+  onDelete: (taskId: number) => void;
 }
 
-export const Row = ({ date, title, description, status }: RowProps) => {
+export const Row = ({ date, title, status, taskId, onDelete }: RowProps) => {
   return (
     <tr>
       <td>{date}</td>
       <td>Icon</td>
       <td>
-        <p>{title}</p>
-        <span style={{ color: "grey", fontSize: "0.8em" }}>{description}</span>
+        <h4>{title}</h4>
       </td>
       <td>
         <Badge status={status} />
       </td>
       <td>
         <div className="actions-cell">
-          <IconButton>Edit</IconButton>
-          <IconButton>Delete</IconButton>
-          <IconButton>Toggle Status</IconButton>
+          <EditTask />
+          <DeleteTask onDelete={onDelete} taskId={taskId} />
+          <ToggleTaskStatus />
         </div>
       </td>
     </tr>

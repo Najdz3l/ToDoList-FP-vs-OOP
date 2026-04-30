@@ -1,34 +1,31 @@
-import "./ExportModal.css";
-import { Button } from "../ui/Button";
+import { Button } from "@components/ui/Button";
 import { Modal } from "./Modal";
 
-interface ExportModalProps {
+interface ExportModalStateProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const ExportModal = ({ isOpen, onClose: onClose }: ExportModalProps) => {
+export const ExportModal = ({ isOpen, onClose }: ExportModalStateProps) => {
   if (!isOpen) return null;
 
+  const onClickExport = (format: string) => {
+    console.log(`Exporting tasks in ${format} format...`);
+    // ToDo: Implement actual export logic here
+    onClose();
+  };
+
   return (
-    <Modal title="Modal Title" description="Modal Description" isOpen={isOpen} onClose={() => onClose()}>
-      <div className="modal-overlay" onClick={onClose}>
-        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-          <div className="modal-header">
-            <h2>Export Tasks</h2>
-            <button className="modal-close" onClick={onClose}>
-              &times;
-            </button>
-          </div>
-          <div className="modal-body">
-            <p>Choose the format you want to export your tasks to:</p>
-            <div className="export-buttons">
-              <Button>JSON</Button>
-              <Button>CSV</Button>
-              <Button>TXT</Button>
-            </div>
-          </div>
-        </div>
+    <Modal
+      title="Export Tasks"
+      description="Choose the format you want to export your tasks to:"
+      isOpen={isOpen}
+      onClose={() => onClose()}
+    >
+      <div className="export-buttons">
+        <Button onClick={() => onClickExport("JSON")}>JSON</Button>
+        <Button onClick={() => onClickExport("CSV")}>CSV</Button>
+        <Button onClick={() => onClickExport("TXT")}>TXT</Button>
       </div>
     </Modal>
   );

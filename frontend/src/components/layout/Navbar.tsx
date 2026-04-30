@@ -1,18 +1,26 @@
 import "./Navbar.css";
-import { Button } from "../ui/Button";
-import { Filters } from "../navbar/Filters";
-import { Export } from "../navbar/Export";
+import { Filters } from "@components/navbar/Filters";
+import { Export } from "@components/navbar/Export";
+import type { FilterOption } from "@/types/FilterOption";
+import { AddTask } from "@components/navbar/AddTask";
+import { ClearTasks } from "@components/navbar/ClearTasks";
 
 export const Navbar = () => {
+  const filterOptions: FilterOption[] = [
+    { value: "all", label: "All" },
+    { value: "active", label: "Active" },
+    { value: "completed", label: "Completed" },
+  ];
+
   return (
     <nav>
       <div className="navbar-actions">
-        <Button>Add Task</Button>
-        <Button>Clear Completed</Button>
+        <AddTask />
+        <ClearTasks />
       </div>
 
       <div className="navbar-controls">
-        <Filters />
+        <Filters filterOptions={filterOptions} />
         <Export />
       </div>
     </nav>
