@@ -1,13 +1,13 @@
+import "./Modal.css";
 import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { normalizeString } from "../../utils/normalizeString.ts";
 
-interface ModalCloseProps {
+interface ModalStateProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-interface ModalProps extends ModalCloseProps {
+interface ModalProps extends ModalStateProps {
   children: ReactNode;
   title: string;
   description: string;
@@ -16,22 +16,23 @@ interface ModalProps extends ModalCloseProps {
 export const Modal: React.FC<ModalProps> = ({ children, title, description, isOpen, onClose }) => {
   if (!isOpen) return;
 
-  const handleOnClickContent = (e: React.MouseEvent<HTMLElement>): void => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
   };
 
   return createPortal(
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={handleOnClickContent}>
+    <div className="modal-overlay" onClick={handleOverlayClick}>
+      <div className="modal-content">
         <div className="modal-header">
-          {normalizeString(title)}
+          {title}
           <button className="modal-close" onClick={onClose}>
             &times;
           </button>
         </div>
         <div className="modal-body">
-          <p>{normalizeString(description)}</p>
+          <p>{description}</p>
           {children}
         </div>
       </div>

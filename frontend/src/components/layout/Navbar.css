@@ -18,8 +18,8 @@ nav {
   flex-wrap: wrap;
 }
 
-.todo-filters,
-.todo-export {
+.filters,
+.export {
   display: flex;
   align-items: center;
   gap: 12px;

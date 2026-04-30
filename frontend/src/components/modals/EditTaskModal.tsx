@@ -2,35 +2,30 @@ import { Button } from "@components/ui/Button";
 import { Modal } from "./Modal";
 import { Input } from "@components/ui/Input";
 
-interface AddTaskModalStateProps {
+interface EditTaskModalStateProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const AddTaskModal = ({ isOpen, onClose }: AddTaskModalStateProps) => {
+export const EditTaskModal = ({ isOpen, onClose }: EditTaskModalStateProps) => {
   if (!isOpen) return null;
 
   const onSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Submitting new task...");
+    console.log("Submitting changes...");
     const formData = new FormData(e.currentTarget);
     console.log(formData);
-    // ToDo: Implement actual add task logic here
+    // ToDo: Implement actual edit task logic here
     onClose();
   };
 
   return (
-    <Modal
-      title="Add Task"
-      description="Enter the details for your new task:"
-      isOpen={isOpen}
-      onClose={() => onClose()}
-    >
+    <Modal title="Edit Task" description="Update the details for your task:" isOpen={isOpen} onClose={() => onClose()}>
       <form className="add-task-form" onSubmit={onSubmit}>
         <Input placeholder="Task Name" name="taskName" />
         {/* ToDo: Icon Input, Get svg's */}
         <Input type="date" placeholder="Due Date" name="dueDate" />
-        <Button type="submit">Add Task</Button>
+        <Button type="submit">Edit Task</Button>
       </form>
     </Modal>
   );

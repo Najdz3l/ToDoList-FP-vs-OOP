@@ -1,20 +1,19 @@
+import "./Export.css";
 import { useState } from "react";
-import { Button } from "../ui/Button";
-import { ExportModal } from "../modals/ExportModal";
+import { Button } from "@components/ui/Button";
+import { ExportModal } from "@components/modals/ExportModal";
 
 export const Export = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleOnExport = (e: React.MouseEvent<HTMLElement>) => {
+  const handleOnClickExport = () => {
     setIsModalOpen(true);
-    console.log("handleOnExport triggered", e);
   };
 
   return (
-    <div className="todo-export">
-      <Button onClick={() => handleOnExport}>Export</Button>
-
-      <ExportModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    <div className="export">
+      <Button onClick={handleOnClickExport}>Export</Button>
+      {isModalOpen && <ExportModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
     </div>
   );
 };
