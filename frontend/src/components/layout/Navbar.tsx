@@ -1,7 +1,7 @@
 import "./Navbar.css";
 import { Filters } from "@components/navbar/Filters";
 import { Export } from "@components/navbar/Export";
-import type { FilterOption } from "@/types/FilterOption";
+import type { FilterOption } from "@/types/FilterOption.types";
 import { AddTask } from "@components/navbar/AddTask";
 import { ClearTasks } from "@components/navbar/ClearTasks";
 

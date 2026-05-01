@@ -1,7 +1,7 @@
 import "./ClearTasks.css";
 import { useState } from "react";
 import { Button } from "@components/ui/Button";
-import { ClearTasksModal } from "../modals/ClearTasksModal";
+import { ClearTasksModal } from "@components/modals/ClearTasksModal";
 
 export const ClearTasks = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

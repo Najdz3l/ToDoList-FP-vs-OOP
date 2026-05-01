@@ -3,19 +3,15 @@ import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useEffect, useRef } from "react";
 import { useModalContext } from "@/context/ModalContext";
+import type { ModalStateProps } from "@/types/Modal.types";
 
-interface ModalStateProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-interface ModalProps extends ModalStateProps {
+interface Props extends ModalStateProps {
   children: ReactNode;
   title: string;
   description: string;
 }
 
-export const Modal: React.FC<ModalProps> = ({ children, title, description, isOpen, onClose }) => {
+export const Modal: React.FC<Props> = ({ children, title, description, isOpen, onClose }) => {
   const { openModal, closeModal } = useModalContext();
   const registeredRef = useRef(false);
   const contentRef = useRef<HTMLDivElement | null>(null);

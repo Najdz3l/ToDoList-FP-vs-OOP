@@ -1,9 +1,13 @@
 import { Select } from "@components/ui/Select";
 import "./Filters.css";
-import type { FilterOption } from "@/types/FilterOption";
+import type { FilterOption } from "@/types/FilterOption.types";
 import { useRef } from "react";
 
-export const FiltersSelect = ({ filterOptions }: { filterOptions: FilterOption[] }) => {
+interface Props {
+  filterOptions: FilterOption[];
+}
+
+export const FiltersSelect: React.FC<Props> = ({ filterOptions }) => {
   const selectRef = useRef<HTMLSelectElement>(null);
 
   const handleFiltersOnChange = (): void => {

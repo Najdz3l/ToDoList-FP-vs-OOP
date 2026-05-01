@@ -3,19 +3,14 @@ import { useState } from "react";
 import { Button } from "@components/ui/Button";
 import { EditTaskModal } from "@components/modals/EditTaskModal";
 import type { Task } from "@/types/TaskManager.types";
-
-interface EditFields {
-  date: string;
-  title: string;
-  status: string;
-}
+import type { EditFields } from "@/types/EditFields.types";
 
 interface Props {
   task: Task;
-  updateTask: (taskId: string, updatedFields: Partial<EditFields>) => void | Promise<void>;
+  updateTask: (taskId: string, updatedFields: Partial<EditFields>) => void;
 }
 
-export const EditTask = ({ task, updateTask }: Props) => {
+export const EditTask: React.FC<Props> = ({ task, updateTask }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOnClickEditTask = () => {

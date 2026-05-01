@@ -1,9 +1,10 @@
+import type { TaskStatus } from "@/types/TaskManager.types";
 import "./Badge.css";
 
-interface BadgeProps {
-  status: "Active" | "Completed" | string;
+interface Props {
+  status: TaskStatus;
 }
 
-export const Badge = ({ status }: BadgeProps) => {
+export const Badge: React.FC<Props> = ({ status }) => {
   return <span className={`badge badge-${status.toLowerCase()}`}>{status}</span>;
 };

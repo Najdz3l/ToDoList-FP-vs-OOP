@@ -11,7 +11,7 @@ interface Props {
   toggleStatus: (taskId: string) => void;
 }
 
-export const Row = ({ task, deleteTask, updateTask, toggleStatus }: Props) => {
+export const Row: React.FC<Props> = ({ task, deleteTask, updateTask, toggleStatus }) => {
   return (
     <tr>
       <td>{task.date}</td>

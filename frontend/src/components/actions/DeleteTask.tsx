@@ -8,7 +8,7 @@ interface Props {
   deleteTask: (taskId: string) => void;
 }
 
-export const DeleteTask = ({ taskId, deleteTask }: Props) => {
+export const DeleteTask: React.FC<Props> = ({ taskId, deleteTask }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOnClick = () => {

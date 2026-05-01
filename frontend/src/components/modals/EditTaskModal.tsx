@@ -2,24 +2,15 @@ import { Button } from "@components/ui/Button";
 import { Modal } from "./Modal";
 import { Input } from "@components/ui/Input";
 import type { Task } from "@/types/TaskManager.types";
-
-interface EditFields {
-  date: string;
-  title: string;
-  status: string;
-}
-
-interface ModalStateProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import type { EditFields } from "@/types/EditFields.types";
+import type { ModalStateProps } from "@/types/Modal.types";
 
 interface Props extends ModalStateProps {
   task: Task;
   onUpdate: (taskId: string, updatedFields: Partial<EditFields>) => void | Promise<void>;
 }
 
-export const EditTaskModal = ({ task, onUpdate, isOpen, onClose }: Props) => {
+export const EditTaskModal: React.FC<Props> = ({ task, onUpdate, isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const onSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {

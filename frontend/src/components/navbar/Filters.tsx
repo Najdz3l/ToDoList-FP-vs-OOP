@@ -1,9 +1,13 @@
 import "./Filters.css";
-import type { FilterOption } from "@/types/FilterOption";
+import type { FilterOption } from "@/types/FilterOption.types";
 import { FiltersSearch } from "./FiltersSearch";
 import { FiltersSelect } from "./FiltersSelect";
 
-export const Filters = ({ filterOptions }: { filterOptions: FilterOption[] }) => {
+interface Props {
+  filterOptions: FilterOption[];
+}
+
+export const Filters: React.FC<Props> = ({ filterOptions }) => {
   return (
     <div className="filters">
       <FiltersSearch />

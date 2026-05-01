@@ -6,7 +6,7 @@ interface Props {
   toggleStatus: (taskId: string) => void;
 }
 
-export const ToggleTaskStatus = ({ taskId, toggleStatus: toggleStatus }: Props) => {
+export const ToggleTaskStatus: React.FC<Props> = ({ taskId, toggleStatus: toggleStatus }) => {
   const handleOnClick = () => {
     try {
       toggleStatus(taskId);

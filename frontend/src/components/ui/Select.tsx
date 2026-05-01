@@ -6,13 +6,13 @@ interface Option {
   label: string;
 }
 
-interface SelectProps extends ComponentPropsWithoutRef<"select"> {
+interface Props extends ComponentPropsWithoutRef<"select"> {
   options: Option[];
   ref: React.Ref<HTMLSelectElement>;
   onChange: () => void;
 }
 
-export const Select = ({ options, ref, onChange, ...props }: SelectProps) => {
+export const Select = ({ options, ref, onChange, ...props }: Props) => {
   return (
     <select {...props} ref={ref} onChange={() => onChange()}>
       {options.map((opt) => (

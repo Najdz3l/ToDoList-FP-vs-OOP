@@ -1,15 +1,14 @@
+import type { ModalContextType } from "@/types/Modal.types";
 import React, { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
 
-type ModalContextType = {
-  isAnyModalOpen: boolean;
-  openModal: () => void;
-  closeModal: () => void;
-};
+interface Props {
+  children: ReactNode;
+}
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
-export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const ModalProvider: React.FC<Props> = ({ children }) => {
   const [count, setCount] = useState(0);
 
   const openModal = () => setCount((c) => c + 1);

@@ -1,12 +1,10 @@
 import { Button } from "@components/ui/Button";
 import { Modal } from "./Modal";
+import type { ModalStateProps } from "@/types/Modal.types";
 
-interface ExportModalStateProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+interface Props extends ModalStateProps {}
 
-export const ExportModal = ({ isOpen, onClose }: ExportModalStateProps) => {
+export const ExportModal: React.FC<Props> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const onClickExport = (format: string) => {

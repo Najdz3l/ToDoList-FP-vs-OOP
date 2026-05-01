@@ -1,13 +1,11 @@
 import { Button } from "@components/ui/Button";
 import { Modal } from "./Modal";
 import { Input } from "@components/ui/Input";
+import type { ModalStateProps } from "@/types/Modal.types";
 
-interface ClearTasksModalStateProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+interface Props extends ModalStateProps {}
 
-export const ClearTasksModal = ({ isOpen, onClose }: ClearTasksModalStateProps) => {
+export const ClearTasksModal: React.FC<Props> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const onSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {

@@ -1,9 +1,9 @@
 import type { ComponentPropsWithoutRef } from "react";
 import "./Button.css";
 
-interface ButtonProps extends ComponentPropsWithoutRef<"button"> {}
+interface Props extends ComponentPropsWithoutRef<"button"> {}
 
-export const Button = ({ children, ...props }: ButtonProps) => {
+export const Button: React.FC<Props> = ({ children, ...props }) => {
   return (
     <button className="button" type="button" {...props}>
       {children}
