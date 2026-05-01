@@ -13,7 +13,7 @@ export const Table = () => {
       <table>
         <thead>
           <tr>
-            <th>DUE DATE</th>
+            <th>Due Date</th>
             <th>Icon</th>
             <th>Title</th>
             <th>Status</th>

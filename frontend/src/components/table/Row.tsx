@@ -23,7 +23,7 @@ export const Row = ({ task, deleteTask, updateTask, toggleStatus }: Props) => {
         <Badge status={task.status} />
       </td>
       <td>
-        <EditTask taskId={task.taskId} updateTask={updateTask} />
+        <EditTask task={task} updateTask={updateTask} />
         <DeleteTask taskId={task.taskId} deleteTask={deleteTask} />
         <ToggleTaskStatus taskId={task.taskId} toggleStatus={toggleStatus} />
       </td>
