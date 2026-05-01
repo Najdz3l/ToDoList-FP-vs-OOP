@@ -1,15 +1,24 @@
 import "./ToggleTaskStatus.css";
 import { Button } from "@components/ui/Button";
 
-export const ToggleTaskStatus = () => {
-  const handleOnClickToggleStatus = () => {
-    console.log("Toggle Task Status clicked");
-    // ToDo: Implement actual toggle task status logic here
+interface Props {
+  taskId: string;
+  toggleStatus: (taskId: string) => void;
+}
+
+export const ToggleTaskStatus = ({ taskId, toggleStatus: toggleStatus }: Props) => {
+  const handleOnClick = () => {
+    try {
+      console.log(`Toggling status for task with ID: ${taskId}`);
+      toggleStatus(taskId);
+    } catch (error) {
+      console.error("Failed to toggle task status:", error);
+    }
   };
 
   return (
     <div className="toggle-task-status">
-      <Button onClick={handleOnClickToggleStatus}>Toggle Status</Button>
+      <Button onClick={handleOnClick}>Toggle Status</Button>
     </div>
   );
 };

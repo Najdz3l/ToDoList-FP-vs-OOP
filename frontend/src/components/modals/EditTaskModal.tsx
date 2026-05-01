@@ -2,20 +2,35 @@ import { Button } from "@components/ui/Button";
 import { Modal } from "./Modal";
 import { Input } from "@components/ui/Input";
 
+interface EditFields {
+  date: string;
+  title: string;
+  status: string;
+}
+
 interface EditTaskModalStateProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const EditTaskModal = ({ isOpen, onClose }: EditTaskModalStateProps) => {
+interface EditTaskModalProps extends EditTaskModalStateProps {
+  onUpdate: (taskId: string, updatedFields: Partial<EditFields>) => void | Promise<void>;
+  taskId: string;
+}
+
+export const EditTaskModal = ({ isOpen, onClose, onUpdate, taskId }: EditTaskModalProps) => {
   if (!isOpen) return null;
 
   const onSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Submitting changes...");
     const formData = new FormData(e.currentTarget);
-    console.log(formData);
-    // ToDo: Implement actual edit task logic here
+
+    onUpdate(taskId, {
+      date: formData.get("dueDate") as string,
+      title: formData.get("taskName") as string,
+      status: formData.get("status") as string,
+    });
     onClose();
   };
 

@@ -3,37 +3,35 @@ import { useState } from "react";
 import { Button } from "@components/ui/Button";
 import { DeleteTaskModal } from "@components/modals/DeleteTaskModal";
 
-interface DeleteTaskProps {
-  taskId: number;
-  onDelete: (taskId: number) => void | Promise<void>;
+interface Props {
+  taskId: string;
+  deleteTask: (taskId: string) => void;
 }
 
-export const DeleteTask = ({ taskId, onDelete }: DeleteTaskProps) => {
+export const DeleteTask = ({ taskId, deleteTask }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
 
-  const handleOnClickDeleteTask = () => {
+  const handleOnClick = () => {
     setIsModalOpen(true);
   };
 
-  const handleConfirmDelete = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    setIsDeleting(true);
+  const handleOnConfirmDelete = () => {
     try {
-      await onDelete(taskId);
+      console.log(`Deleting task with ID: ${taskId}`);
+      deleteTask(taskId);
+    } catch (error) {
+      console.error("Failed to delete task:", error);
     } finally {
-      setIsDeleting(false);
       setIsModalOpen(false);
     }
   };
 
   return (
     <div className="delete-task">
-      <Button onClick={handleOnClickDeleteTask} disabled={isDeleting}>
-        Delete Task
-      </Button>
-      {isModalOpen && <DeleteTaskModal isOpen onClose={() => setIsModalOpen(false)} onConfirm={handleConfirmDelete} />}
+      <Button onClick={handleOnClick}>Delete Task</Button>
+      {isModalOpen && (
+        <DeleteTaskModal isOpen onClose={() => setIsModalOpen(false)} onConfirm={handleOnConfirmDelete} />
+      )}
     </div>
   );
 };

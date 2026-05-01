@@ -2,32 +2,30 @@ import { Badge } from "@components/ui/Badge";
 import { EditTask } from "@components/actions/EditTask";
 import { DeleteTask } from "@components/actions/DeleteTask";
 import { ToggleTaskStatus } from "@components/actions/ToggleTaskStatus";
+import type { Task } from "@/types/TaskManager.types";
 
-interface RowProps {
-  date: string;
-  title: string;
-  status: string;
-  taskId: number;
-  onDelete: (taskId: number) => void;
+interface Props {
+  task: Task;
+  deleteTask: (taskId: string) => void;
+  updateTask: (taskId: string, patch: Partial<Task>) => void;
+  toggleStatus: (taskId: string) => void;
 }
 
-export const Row = ({ date, title, status, taskId, onDelete }: RowProps) => {
+export const Row = ({ task, deleteTask, updateTask, toggleStatus }: Props) => {
   return (
     <tr>
-      <td>{date}</td>
+      <td>{task.date}</td>
       <td>Icon</td>
       <td>
-        <h4>{title}</h4>
+        <h4>{task.title}</h4>
       </td>
       <td>
-        <Badge status={status} />
+        <Badge status={task.status} />
       </td>
       <td>
-        <div className="actions-cell">
-          <EditTask />
-          <DeleteTask onDelete={onDelete} taskId={taskId} />
-          <ToggleTaskStatus />
-        </div>
+        <EditTask taskId={task.taskId} updateTask={updateTask} />
+        <DeleteTask taskId={task.taskId} deleteTask={deleteTask} />
+        <ToggleTaskStatus taskId={task.taskId} toggleStatus={toggleStatus} />
       </td>
     </tr>
   );

@@ -1,17 +1,19 @@
 import { Button } from "@components/ui/Button";
 import { Modal } from "./Modal";
 
-interface DeleteTaskModalStateProps {
+interface Props {
   isOpen: boolean;
   onClose: () => void;
+  onConfirm: () => void;
 }
 
-interface DeleteTaskModalProps extends DeleteTaskModalStateProps {
-  onConfirm: (e: React.SubmitEvent<HTMLFormElement>) => void | Promise<void>;
-}
-
-export const DeleteTaskModal = ({ isOpen, onClose, onConfirm }: DeleteTaskModalProps) => {
+export const DeleteTaskModal = ({ isOpen, onClose, onConfirm }: Props) => {
   if (!isOpen) return null;
+
+  const onSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onConfirm();
+  };
 
   return (
     <Modal
@@ -22,7 +24,7 @@ export const DeleteTaskModal = ({ isOpen, onClose, onConfirm }: DeleteTaskModalP
     >
       <>
         <p>You can't undo this action.</p>
-        <form className="add-task-form" onSubmit={onConfirm}>
+        <form className="add-task-form" onSubmit={onSubmit}>
           <Button type="submit">Delete Task</Button>
         </form>
       </>
