@@ -17,7 +17,6 @@ export const DeleteTask = ({ taskId, deleteTask }: Props) => {
 
   const handleOnConfirmDelete = () => {
     try {
-      console.log(`Deleting task with ID: ${taskId}`);
       deleteTask(taskId);
     } catch (error) {
       console.error("Failed to delete task:", error);
