@@ -4,10 +4,17 @@ import searchSvgUrl from "@assets/icons/search.svg";
 import { Button } from "@components/ui/Button";
 import { Icon } from "@components/ui/Icon";
 import { useEffect, useRef } from "react";
+import { useModalContext } from "@/context/ModalContext";
 
 export const FiltersSearch = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const keybinds: readonly string[] = ["enter", "/", "escape"];
+  const { isAnyModalOpen } = useModalContext();
+  const isModalOpenRef = useRef<boolean>(isAnyModalOpen);
+
+  useEffect(() => {
+    isModalOpenRef.current = isAnyModalOpen;
+  }, [isAnyModalOpen]);
 
   const handleSearch = (query: string): void => {
     if (!query) {
@@ -19,6 +26,8 @@ export const FiltersSearch = () => {
   };
 
   const handleKeyDown = (event: KeyboardEvent): void => {
+    if (isModalOpenRef.current) return;
+
     const keyPressed = event.key.toLowerCase();
 
     if (!keybinds.includes(keyPressed)) {

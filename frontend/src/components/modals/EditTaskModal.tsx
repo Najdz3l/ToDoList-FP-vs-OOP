@@ -1,6 +1,7 @@
 import { Button } from "@components/ui/Button";
 import { Modal } from "./Modal";
 import { Input } from "@components/ui/Input";
+import type { Task } from "@/types/TaskManager.types";
 
 interface EditFields {
   date: string;
@@ -8,28 +9,26 @@ interface EditFields {
   status: string;
 }
 
-interface EditTaskModalStateProps {
+interface ModalStateProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-interface EditTaskModalProps extends EditTaskModalStateProps {
+interface Props extends ModalStateProps {
+  task: Task;
   onUpdate: (taskId: string, updatedFields: Partial<EditFields>) => void | Promise<void>;
-  taskId: string;
 }
 
-export const EditTaskModal = ({ isOpen, onClose, onUpdate, taskId }: EditTaskModalProps) => {
+export const EditTaskModal = ({ task, onUpdate, isOpen, onClose }: Props) => {
   if (!isOpen) return null;
 
   const onSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Submitting changes...");
     const formData = new FormData(e.currentTarget);
 
-    onUpdate(taskId, {
+    onUpdate(task.taskId, {
       date: formData.get("dueDate") as string,
       title: formData.get("taskName") as string,
-      status: formData.get("status") as string,
     });
     onClose();
   };
@@ -37,9 +36,9 @@ export const EditTaskModal = ({ isOpen, onClose, onUpdate, taskId }: EditTaskMod
   return (
     <Modal title="Edit Task" description="Update the details for your task:" isOpen={isOpen} onClose={() => onClose()}>
       <form className="add-task-form" onSubmit={onSubmit}>
-        <Input placeholder="Task Name" name="taskName" />
+        <Input placeholder="Task Name" name="taskName" defaultValue={task.title} />
         {/* ToDo: Icon Input, Get svg's */}
-        <Input type="date" placeholder="Due Date" name="dueDate" />
+        <Input type="date" placeholder="Due Date" name="dueDate" defaultValue={task.date} />
         <Button type="submit">Edit Task</Button>
       </form>
     </Modal>
