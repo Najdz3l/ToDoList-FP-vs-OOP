@@ -12,7 +12,6 @@ export const Table = () => {
         <thead>
           <tr>
             <th>Due Date</th>
-            <th>Icon</th>
             <th>Title</th>
             <th>Status</th>
             <th>Actions</th>

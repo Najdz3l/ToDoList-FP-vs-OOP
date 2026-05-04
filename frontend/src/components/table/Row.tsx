@@ -15,7 +15,6 @@ export const Row: React.FC<Props> = ({ task, deleteTask, updateTask, toggleStatu
   return (
     <tr>
       <td>{task.date}</td>
-      <td>Icon</td>
       <td>
         <h4>{task.title}</h4>
       </td>
