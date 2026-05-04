@@ -9,6 +9,11 @@
   transition: all 0.3s;
   cursor: pointer;
   white-space: nowrap;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25em;
 }
 
 .button:hover {

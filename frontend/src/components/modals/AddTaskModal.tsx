@@ -47,7 +47,6 @@ export const AddTaskModal: React.FC<Props> = ({ isOpen, onClose, onConfirm }) =>
     >
       <form className="add-task-form" onSubmit={onSubmit}>
         <Input placeholder="Task Name" name="taskName" />
-        {/* ToDo: Icon Input, Get svg's */}
         <Input
           type="date"
           placeholder="Due Date"

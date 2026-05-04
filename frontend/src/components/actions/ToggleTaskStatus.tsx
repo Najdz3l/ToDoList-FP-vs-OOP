@@ -1,5 +1,8 @@
 import "./ToggleTaskStatus.css";
 import { Button } from "@components/ui/Button";
+import noteDoneSvg from "@assets/icons/ui/note-done.svg";
+// import noteUndoneSvg from "@assets/icons/ui/note-undone.svg";
+import { Icon } from "@components/ui/Icon";
 
 interface Props {
   taskId: string;
@@ -17,7 +20,10 @@ export const ToggleTaskStatus: React.FC<Props> = ({ taskId, toggleStatus: toggle
 
   return (
     <div className="toggle-task-status">
-      <Button onClick={handleOnClick}>Toggle Status</Button>
+      <Button onClick={handleOnClick}>
+        <Icon svg={noteDoneSvg} altText="Toggle Task Status" />
+        <span>Toggle Status</span>
+      </Button>
     </div>
   );
 };

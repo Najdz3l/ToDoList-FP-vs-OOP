@@ -1,6 +1,6 @@
 import { Input } from "@components/ui/Input";
 import "./Filters.css";
-import searchSvgUrl from "@assets/icons/search.svg";
+import searchSvgUrl from "@assets/icons/ui/search.svg";
 import { Button } from "@components/ui/Button";
 import { Icon } from "@components/ui/Icon";
 import { useEffect, useRef } from "react";

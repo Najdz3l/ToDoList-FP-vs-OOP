@@ -1,4 +1,6 @@
+import { Icon } from "../ui/Icon";
 import "./Footer.css";
+import githubSvg from "@assets/icons/ui/github.svg";
 
 export const Footer = () => {
   return (
@@ -15,8 +17,15 @@ export const Footer = () => {
           Sachiko7552
         </a>
       </p>
-      <p>
-        Repozytorium projektu:{" "}
+      <p
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "0.5rem",
+        }}
+      >
+        <Icon svg={githubSvg} altText="GitHub Repository" />{" "}
         <a href="https://github.com/Najdz3l/ToDoList-FP-vs-OOP" target="_blank" rel="noopener noreferrer">
           ToDoList-FP-vs-OOP
         </a>

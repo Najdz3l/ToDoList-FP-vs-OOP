@@ -2,6 +2,8 @@ import "./DeleteTask.css";
 import { useState } from "react";
 import { Button } from "@components/ui/Button";
 import { DeleteTaskModal } from "@components/modals/DeleteTaskModal";
+import { Icon } from "@components/ui/Icon";
+import deleteSvg from "@assets/icons/ui/delete.svg";
 
 interface Props {
   taskId: string;
@@ -27,7 +29,10 @@ export const DeleteTask: React.FC<Props> = ({ taskId, deleteTask }) => {
 
   return (
     <div className="delete-task">
-      <Button onClick={handleOnClick}>Delete Task</Button>
+      <Button onClick={handleOnClick}>
+        <Icon svg={deleteSvg} altText="Delete Task" />
+        <span>Delete</span>
+      </Button>
       {isModalOpen && (
         <DeleteTaskModal isOpen onClose={() => setIsModalOpen(false)} onConfirm={handleOnConfirmDelete} />
       )}
