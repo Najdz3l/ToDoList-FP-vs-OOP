@@ -7,4 +7,7 @@ export type Task = {
   status: TaskStatus;
 };
 
-export type Payload = Omit<Task, "taskId">;
+export interface NewTaskPayload {
+  title: string;
+  date: string;
+}

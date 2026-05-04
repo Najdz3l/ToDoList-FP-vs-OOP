@@ -1,14 +1,12 @@
-import type { Payload, Task } from "@/types/TaskManager.types";
+import type { NewTaskPayload, Task } from "@/types/TaskManager.types";
 import { generateUniqueId } from "@utils/generateUniqueId";
 
 export class TaskManager {
-  // Tablica przechowująca zadania
   private tasks: Task[] = [];
-  // Zbiór funkcji obserwujących zmiany w zadaniach
   private subs = new Set<(tasks: Task[]) => void>();
 
   constructor(initial: Task[] = []) {
-    this.tasks = [...initial]; // Kopia początkowych zadań, jeśli istnieją
+    this.tasks = [...initial];
   }
 
   /*
@@ -41,8 +39,8 @@ export class TaskManager {
    * Powiadamia subskrybentów o zmianie
    * Zwraca dodane zadanie, w tym wygenerowane taskId
    */
-  addTask(payload: Payload): Task {
-    const task = { ...payload, taskId: generateUniqueId() };
+  addTask(payload: NewTaskPayload): Task {
+    const task: Task = { ...payload, taskId: generateUniqueId(), status: "Active" };
     this.tasks.push(task);
     this.notify();
     return task;
@@ -78,6 +76,11 @@ export class TaskManager {
     this.tasks = this.tasks.map((t) =>
       t.taskId === taskId ? { ...t, status: t.status === "Active" ? "Completed" : "Active" } : t,
     );
+    this.notify();
+  }
+
+  clearTasks(): void {
+    this.tasks = [];
     this.notify();
   }
 }

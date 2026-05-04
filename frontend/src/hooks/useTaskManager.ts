@@ -1,29 +1,32 @@
 import { useEffect, useState } from "react";
-import type { Payload, Task } from "@/types/TaskManager.types";
+import type { NewTaskPayload, Task } from "@/types/TaskManager.types";
 import { TaskManager } from "@/services/TaskManager";
+import { useTaskManagerContext } from "@/context/TaskManagerContext";
 
-export const useTaskManager = (manager: TaskManager) => {
-  // Przechowywanie zadań w stanie komponentu i synchronizacja z TaskManagerem
-  // setTasks jest callbackiem dla TaskManager.subscribe
-  const [tasks, setTasks] = useState<Task[]>(() => manager.getTasks());
+export const useTaskManager = (manager?: TaskManager) => {
+  // Jeśli nie podano managera, pobierz go z kontekstu
+  const resolvedManager = manager ?? useTaskManagerContext();
+
+  const [tasks, setTasks] = useState<Task[]>(() => resolvedManager.getTasks());
 
   useEffect(() => {
-    // Podłączenie do TaskManagera
-    const unsubscribe = manager.subscribe(setTasks);
-    return unsubscribe; // Odłączenie przy odmontowaniu komponentu
-  }, [manager]);
+    const unsubscribe = resolvedManager.subscribe(setTasks);
+    return unsubscribe;
+  }, [resolvedManager]);
 
   /** Udostępnia metody do manipulacji zadaniami:
    * tasks: Aktualna lista zadań
    * addTask: Dodaj zadanie
    * deleteTask: Usuń zadanie
    * updateTask: Zaktualizuj zadanie
+   * clearTasks: Wyczyść zadania
    */
   return {
     tasks,
-    addTask: (payload: Payload) => manager.addTask(payload),
-    deleteTask: (id: string) => manager.deleteTask(id),
-    updateTask: (id: string, patch: Partial<Task>) => manager.updateTask(id, patch),
-    toggleTaskStatus: (id: string) => manager.toggleTaskStatus(id),
+    addTask: (payload: NewTaskPayload) => resolvedManager.addTask(payload),
+    deleteTask: (id: string) => resolvedManager.deleteTask(id),
+    updateTask: (id: string, patch: Partial<Task>) => resolvedManager.updateTask(id, patch),
+    toggleTaskStatus: (id: string) => resolvedManager.toggleTaskStatus(id),
+    clearTasks: () => resolvedManager.clearTasks(),
   };
 };

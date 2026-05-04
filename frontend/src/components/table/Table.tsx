@@ -1,12 +1,10 @@
 import "./Table.css";
 import { Row } from "./Row";
 import { useTaskManager } from "@/hooks/useTaskManager";
-import { useTaskManagerContext } from "@/context/TaskManagerContext";
 import type { Task } from "@/types/TaskManager.types";
 
 export const Table = () => {
-  const manager = useTaskManagerContext();
-  const { tasks, deleteTask, updateTask, toggleTaskStatus } = useTaskManager(manager);
+  const { tasks, deleteTask, updateTask, toggleTaskStatus } = useTaskManager();
 
   return (
     <main>
