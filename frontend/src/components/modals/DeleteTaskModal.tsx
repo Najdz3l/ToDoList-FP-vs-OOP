@@ -26,10 +26,12 @@ export const DeleteTaskModal: React.FC<Props> = ({ isOpen, onClose, onConfirm })
       <>
         <p>You can't undo this action.</p>
         <form className="add-task-form" onSubmit={onSubmit}>
-          <Button type="submit">
-            <Icon svg={deleteSvg} altText="Delete Task" />
-            <span>Delete Task</span>
-          </Button>
+          <div className="button-container">
+            <Button type="submit">
+              <Icon svg={deleteSvg} altText="Delete Task" />
+              <span>Delete Task</span>
+            </Button>
+          </div>
         </form>
       </>
     </Modal>

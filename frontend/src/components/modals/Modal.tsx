@@ -77,7 +77,7 @@ export const Modal: React.FC<Props> = ({ children, title, description, isOpen, o
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-content" ref={contentRef} tabIndex={-1} onKeyDown={handleContentKeyDown}>
         <div className="modal-header">
-          {title}
+          <h3>{title}</h3>
           <button className="modal-close" onClick={onClose}>
             &times;
           </button>
