@@ -21,7 +21,7 @@ export const Row: React.FC<Props> = ({ task, deleteTask, updateTask, toggleStatu
       <td>
         <Badge status={task.status} />
       </td>
-      <td>
+      <td className="actions-cell">
         <EditTask task={task} updateTask={updateTask} />
         <DeleteTask taskId={task.taskId} deleteTask={deleteTask} />
         <ToggleTaskStatus taskId={task.taskId} toggleStatus={toggleStatus} />

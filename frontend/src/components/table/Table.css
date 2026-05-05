@@ -32,6 +32,14 @@ td {
     transform 0.2s,
     box-shadow 0.2s,
     background-color 0.2s;
+
+  &.actions-cell {
+    display: flex;
+    gap: 1.25em;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100%;
+  }
 }
 
 td:first-child {
@@ -39,17 +47,11 @@ td:first-child {
   border-bottom-left-radius: 8px;
 }
 
-td:last-child {
+/* Co to robi? xD */
+/* td:last-child {
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
-}
-
-.actions-cell {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  height: 100%;
-}
+} */
 
 tbody tr {
   position: relative;
