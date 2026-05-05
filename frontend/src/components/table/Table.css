@@ -12,6 +12,14 @@ table {
   min-width: 768px;
 }
 
+thead {
+  text-align: center;
+  th:last-child {
+    padding-left: 24px;
+    text-align: left;
+  }
+}
+
 th {
   color: var(--text);
   font-weight: 500;
