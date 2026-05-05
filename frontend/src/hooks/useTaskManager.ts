@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { NewTaskPayload, Task } from "@/types/TaskManager.types";
+import type { NewTaskPayload, Task, TaskManagerExportFormat } from "@/types/TaskManager.types";
 import { TaskManager } from "@/services/TaskManager";
 import { useTaskManagerContext } from "@/context/TaskManagerContext";
 
@@ -20,6 +20,7 @@ export const useTaskManager = (manager?: TaskManager) => {
    * deleteTask: Usuń zadanie
    * updateTask: Zaktualizuj zadanie
    * clearTasks: Wyczyść zadania
+   * exportTasks: Eksportuj zadania w określonym formacie
    */
   return {
     tasks,
@@ -28,5 +29,6 @@ export const useTaskManager = (manager?: TaskManager) => {
     updateTask: (id: string, patch: Partial<Task>) => resolvedManager.updateTask(id, patch),
     toggleTaskStatus: (id: string) => resolvedManager.toggleTaskStatus(id),
     clearTasks: () => resolvedManager.clearTasks(),
+    exportTasks: (format: TaskManagerExportFormat) => resolvedManager.exportTasks(format),
   };
 };

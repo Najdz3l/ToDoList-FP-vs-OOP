@@ -1,4 +1,4 @@
-import type { NewTaskPayload, Task } from "@/types/TaskManager.types";
+import type { NewTaskPayload, Task, TaskManagerExportFormat, TaskManagerExportResult } from "@/types/TaskManager.types";
 import { generateUniqueId } from "@utils/generateUniqueId";
 
 export class TaskManager {
@@ -82,5 +82,55 @@ export class TaskManager {
   clearTasks(): void {
     this.tasks = [];
     this.notify();
+  }
+
+  /**
+   * Exportuje zadania w wybranym formacie (JSON, CSV, TXT)
+   * @param format Format eksportu: "json", "csv" lub "txt"
+   * @returns Obiekt z zawartością do eksportu, typem MIME i sugerowaną nazwą pliku
+   */
+  exportTasks(format: TaskManagerExportFormat): TaskManagerExportResult {
+    const timestamp = new Date().toISOString().split("T")[0];
+    const filenameBase = `tasks-${timestamp}`;
+
+    // Przygotowanie danych do eksportu
+    // Wybieramy tylko potrzebne pola
+    const selected = this.tasks.map((t) => ({ date: t.date, title: t.title, status: t.status }));
+
+    if (format === "json") {
+      return {
+        content: JSON.stringify(selected, null, 2),
+        mime: "application/json",
+        filename: `${filenameBase}.json`,
+      };
+    }
+
+    if (format === "csv") {
+      const escape = (v: string) => {
+        if (v == null) return "";
+        const s = String(v);
+        if (s.includes(",") || s.includes("\n") || s.includes('"')) {
+          return `"${s.replace(/"/g, '""')}"`;
+        }
+        return s;
+      };
+
+      const header = ["date", "title", "status"].join(",");
+      const rows = selected.map((r) => [escape(r.date), escape(r.title), escape(r.status)].join(",")).join("\n");
+      return {
+        content: `${header}\n${rows}`,
+        mime: "text/csv",
+        filename: `${filenameBase}.csv`,
+      };
+    }
+
+    // txt
+    const txtHeader = "date | title | status";
+    const txtBody = selected.map((r) => `${r.date} | ${r.title} | ${r.status}`).join("\n");
+    return {
+      content: `${txtHeader}\n${txtBody}`,
+      mime: "text/plain",
+      filename: `${filenameBase}.txt`,
+    };
   }
 }
