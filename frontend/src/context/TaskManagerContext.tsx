@@ -3,9 +3,6 @@ import { TaskManager } from "@/services/TaskManager";
 import type { Task } from "@/types/TaskManager.types";
 import { generateUniqueId } from "@/utils/generateUniqueId";
 
-// Context pomaga w uniknięciu prop drilling'u
-// prop drilling - Przekazywanie propów przez wiele poziomów komponentów
-
 interface Props {
   children: React.ReactNode;
 }
@@ -13,6 +10,12 @@ interface Props {
 // Tworzenie kontekstu dla TaskManagera
 const TaskManagerContext = createContext<TaskManager | null>(null);
 
+/**
+ * @summary Provider dla TaskManagera.
+ * @description TaskManagerProvider jest komponentem, który otacza część aplikacji. Pozwala na uniknięcie Prop Drillingu.
+ * @param children - Komponenty potomne, które będą miały dostęp do TaskManagera.
+ * @returns JSX.Element - Provider z wartością TaskManagera, który jest dostępny dla wszystkich komponentów potomnych.
+ */
 export const TaskManagerProvider: React.FC<Props> = ({ children }) => {
   // useMemo zapewnia, że TaskManager jest tworzony tylko raz, a nie przy każdym renderze
   const manager = useMemo(() => {
@@ -28,8 +31,10 @@ export const TaskManagerProvider: React.FC<Props> = ({ children }) => {
   return <TaskManagerContext.Provider value={manager}>{children}</TaskManagerContext.Provider>;
 };
 
-// Pobiera TaskManager z contextu
-// Wyrzuca błąd jeśli hook został użyty poza Providerem
+/**
+ * @summary Hook do pobierania TaskManagera z kontekstu.
+ * @returns TaskManager - Instancja TaskManagera dostępna dla komponentów potomnych.
+ */
 export const useTaskManagerContext = (): TaskManager => {
   const ctx = useContext(TaskManagerContext);
   if (!ctx) throw new Error("useTaskManagerContext must be used within TaskManagerProvider");

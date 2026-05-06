@@ -36,6 +36,10 @@
   color: var(--text);
 }
 
+.modal-header h3 {
+  margin: 0;
+}
+
 .modal-close {
   background: transparent;
   border: none;

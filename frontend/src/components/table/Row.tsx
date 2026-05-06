@@ -19,12 +19,16 @@ export const Row: React.FC<Props> = ({ task, deleteTask, updateTask, toggleStatu
         <h4>{task.title}</h4>
       </td>
       <td>
-        <Badge status={task.status} />
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Badge status={task.status} />
+        </div>
       </td>
-      <td className="actions-cell">
-        <EditTask task={task} updateTask={updateTask} />
-        <DeleteTask taskId={task.taskId} deleteTask={deleteTask} />
-        <ToggleTaskStatus taskId={task.taskId} toggleStatus={toggleStatus} />
+      <td>
+        <div className="actions-cell">
+          <EditTask task={task} updateTask={updateTask} />
+          <DeleteTask taskId={task.taskId} deleteTask={deleteTask} />
+          <ToggleTaskStatus taskId={task.taskId} toggleStatus={toggleStatus} />
+        </div>
       </td>
     </tr>
   );

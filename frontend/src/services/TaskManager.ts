@@ -9,10 +9,10 @@ export class TaskManager {
     this.tasks = [...initial];
   }
 
-  /*
-   *Dodaje funkcję do zbioru subskrybentów
-   *Natychmiast ją wywołuje z bieżącą listą zadań
-   *Zwraca funkcję odsubskrybowania (cleanup)
+  /**
+   * @summary Subskrybuje się do zmian w menedżerze zadań, dodając callback do zbioru subskrybentów i natychmiast wywołując go z aktualną listą zadań. Zwraca funkcję odsubskrybowania, która usuwa callback ze zbioru subskrybentów.
+   * @param callback Funkcja, która zostanie wywołana za każdym razem, gdy lista zadań ulegnie zmianie. Otrzyma aktualną listę zadań jako argument.
+   * @returns Funkcja odsubskrybowania, która usuwa callback ze zbioru subskrybentów
    */
   subscribe(callback: (tasks: Task[]) => void): () => void {
     this.subs.add(callback);
@@ -22,22 +22,26 @@ export class TaskManager {
     };
   }
 
-  // Powiadomienie obserwatorów o zmianie zadań
-  private notify() {
+  /**
+   * @summary Powiadamia wszystkich subskrybentów o zmianie listy zadań, wywołując ich callbacki z aktualną listą zadań
+   * @returns void
+   */
+  private notify(): void {
     this.subs.forEach((callback) => callback(this.getTasks()));
   }
 
-  // Zwraca kopię listy zadań
-  getTasks() {
+  /**
+   * @summary Zwraca aktualną listę zadań
+   * @returns Tablica zadań, gdzie każde zadanie zawiera taskId, title, date i status
+   */
+  getTasks(): Task[] {
     return [...this.tasks];
   }
 
-  /* Dodaj zadanie
-   * payload: obiekt z danymi zadania bez taskId
-   * Tworzy nowe zadanie, generując unikalny taskId
-   * Dodaje nowe zadanie do tablicy zadań
-   * Powiadamia subskrybentów o zmianie
-   * Zwraca dodane zadanie, w tym wygenerowane taskId
+  /**
+   * @summary Dodaje nowe zadanie do menedżera zadań
+   * @param payload Obiekt zawierający dane nowego zadania (title i date)
+   * @returns Nowo dodane zadanie, w tym wygenerowany unikalny taskId i domyślny status "Active"
    */
   addTask(payload: NewTaskPayload): Task {
     const task: Task = { ...payload, taskId: generateUniqueId(), status: "Active" };
@@ -46,31 +50,31 @@ export class TaskManager {
     return task;
   }
 
-  /* Usuń zadanie
-   * taskId: identyfikator zadania do usunięcia
-   * Usuwa zadanie z tablicy na podstawie taskId
-   * Powiadamia subskrybentów o zmianie
+  /**
+   * @summary Usuwa zadanie z menedżera zadań
+   * @param taskId Identyfikator zadania do usunięcia
+   * @returns void
    */
   deleteTask(taskId: string): void {
     this.tasks = this.tasks.filter((t) => t.taskId !== taskId);
     this.notify();
   }
 
-  /* Zaktualizuj zadanie
-   * taskId: identyfikator zadania do zaktualizowania
-   * patch: obiekt z danymi do zaktualizowania
-   * Aktualizuje zadanie, łącząc istniejące dane z nowymi danymi z patcha
-   * Powiadamia subskrybentów o zmianie
+  /**
+   * @summary Aktualizuje zadanie w menedżerze zadań
+   * @param taskId Identyfikator zadania do zaktualizowania
+   * @param patch Obiekt z danymi do zaktualizowania
+   * @returns void
    */
   updateTask(taskId: string, patch: Partial<Task>): void {
     this.tasks = this.tasks.map((t) => (t.taskId === taskId ? { ...t, ...patch } : t));
     this.notify();
   }
 
-  /* Przełącz status zadania
-   * taskId: identyfikator zadania do przełączenia statusu
-   * Znajduje zadanie na podstawie taskId i przełącza jego status między "Active" a "Completed"
-   * Powiadamia subskrybentów o zmianie
+  /**
+   * @summary Przełącza status zadania między "Active" a "Completed"
+   * @param taskId Identyfikator zadania, którego status ma zostać przełączony
+   * @returns void
    */
   toggleTaskStatus(taskId: string): void {
     this.tasks = this.tasks.map((t) =>
@@ -79,13 +83,17 @@ export class TaskManager {
     this.notify();
   }
 
+  /**
+   * @summary Usuwa wszystkie zadania z listy i powiadamia subskrybentów o zmianie
+   * @return void
+   */
   clearTasks(): void {
     this.tasks = [];
     this.notify();
   }
 
   /**
-   * Exportuje zadania w wybranym formacie (JSON, CSV, TXT)
+   * @summary Exportuje zadania w wybranym formacie (JSON, CSV, TXT)
    * @param format Format eksportu: "json", "csv" lub "txt"
    * @returns Obiekt z zawartością do eksportu, typem MIME i sugerowaną nazwą pliku
    */
@@ -93,8 +101,13 @@ export class TaskManager {
     const timestamp = new Date().toISOString().split("T")[0];
     const filenameBase = `tasks-${timestamp}`;
 
-    // Przygotowanie danych do eksportu
-    // Wybieramy tylko potrzebne pola
+    /**
+     * Przygotowanie danych do eksportu.
+     * Wybieramy tylko potrzebne pola:
+     * date: data zadania
+     * title: tytuł zadania
+     * status: status zadania (Active lub Completed)
+     */
     const selected = this.tasks.map((t) => ({ date: t.date, title: t.title, status: t.status }));
 
     if (format === "json") {
