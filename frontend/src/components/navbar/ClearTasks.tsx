@@ -3,11 +3,7 @@ import { useState } from "react";
 import { Button } from "@components/ui/Button";
 import { ClearTasksModal } from "@components/modals/ClearTasksModal";
 
-interface Props {
-  clearTasks: () => void;
-}
-
-export const ClearTasks: React.FC<Props> = ({ clearTasks }) => {
+export const ClearTasks = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOnClickAddTask = () => {
@@ -16,7 +12,7 @@ export const ClearTasks: React.FC<Props> = ({ clearTasks }) => {
 
   const handleOnConfirmClearTasks = () => {
     try {
-      clearTasks();
+      console.log("Clearing tasks");
     } catch (error) {
       console.error("Failed to clear tasks:", error);
     } finally {

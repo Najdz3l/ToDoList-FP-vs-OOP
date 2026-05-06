@@ -4,11 +4,7 @@ import { Button } from "@components/ui/Button";
 import { AddTaskModal } from "@components/modals/AddTaskModal";
 import type { NewTaskPayload } from "@/types/TaskManager.types";
 
-interface Props {
-  addTask: (task: NewTaskPayload) => void;
-}
-
-export const AddTask: React.FC<Props> = ({ addTask }) => {
+export const AddTask = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOnClickAddTask = () => {
@@ -17,7 +13,7 @@ export const AddTask: React.FC<Props> = ({ addTask }) => {
 
   const handleOnConfirmAddTask = (newTask: NewTaskPayload) => {
     try {
-      addTask(newTask);
+      console.log("Adding task:", newTask);
     } catch (error) {
       console.error("Failed to add task:", error);
     } finally {

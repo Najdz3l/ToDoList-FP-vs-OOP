@@ -19,14 +19,3 @@ export type TaskManagerExportResult = {
   mime: string;
   filename: string;
 };
-
-export type TaskManager = {
-  subscribe: (cb: (tasks: Task[]) => void) => () => void;
-  getTasks: () => Task[];
-  addTask: (payload: NewTaskPayload) => Task;
-  deleteTask: (taskId: string) => void;
-  updateTask: (taskId: string, patch: Partial<Task>) => void;
-  toggleTaskStatus: (taskId: string) => void;
-  clearTasks: () => void;
-  exportTasks: (format: TaskManagerExportFormat) => TaskManagerExportResult;
-};

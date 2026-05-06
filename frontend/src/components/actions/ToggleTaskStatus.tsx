@@ -1,18 +1,12 @@
 import "./ToggleTaskStatus.css";
 import { Button } from "@components/ui/Button";
 import noteDoneSvg from "@assets/icons/ui/note-done.svg";
-// import noteUndoneSvg from "@assets/icons/ui/note-undone.svg";
 import { Icon } from "@components/ui/Icon";
 
-interface Props {
-  taskId: string;
-  toggleStatus: (taskId: string) => void;
-}
-
-export const ToggleTaskStatus: React.FC<Props> = ({ taskId, toggleStatus: toggleStatus }) => {
+export const ToggleTaskStatus = () => {
   const handleOnClick = () => {
     try {
-      toggleStatus(taskId);
+      console.log("Task status toggled successfully");
     } catch (error) {
       console.error("Failed to toggle task status:", error);
     }

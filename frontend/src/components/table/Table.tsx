@@ -1,10 +1,10 @@
 import "./Table.css";
 import { Row } from "./Row";
-import { useTaskManager } from "@/hooks/useTaskManager";
+import { HARDCODED_TASKS } from "@/data/tasks";
 import type { Task } from "@/types/TaskManager.types";
 
 export const Table = () => {
-  const { tasks, deleteTask, updateTask, toggleTaskStatus } = useTaskManager();
+  const tasks: Task[] = HARDCODED_TASKS;
 
   return (
     <main>
@@ -23,13 +23,7 @@ export const Table = () => {
         </thead>
         <tbody>
           {tasks.map((task: Task) => (
-            <Row
-              key={task.taskId}
-              task={task}
-              deleteTask={deleteTask}
-              updateTask={updateTask}
-              toggleStatus={toggleTaskStatus}
-            />
+            <Row key={task.taskId} task={task} />
           ))}
         </tbody>
       </table>

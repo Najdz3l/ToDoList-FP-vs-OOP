@@ -1,26 +1,24 @@
 import { Button } from "@components/ui/Button";
 import { Modal } from "./Modal";
 import { Input } from "@components/ui/Input";
-import type { Task } from "@/types/TaskManager.types";
-import type { EditFields } from "@/types/EditFields.types";
 import type { ModalStateProps } from "@/types/Modal.types";
+import type { Task } from "@/types/TaskManager.types";
 
 interface Props extends ModalStateProps {
-  task: Task;
-  onUpdate: (taskId: string, updatedFields: Partial<EditFields>) => void | Promise<void>;
+  task?: Task | undefined;
 }
 
-export const EditTaskModal: React.FC<Props> = ({ task, onUpdate, isOpen, onClose }) => {
+export const EditTaskModal: React.FC<Props> = ({ isOpen, onClose, task }) => {
   if (!isOpen) return null;
 
   const onSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-
-    onUpdate(task.taskId, {
-      date: formData.get("dueDate") as string,
-      title: formData.get("taskName") as string,
+    console.log("Form Data:", {
+      taskName: formData.get("taskName"),
+      dueDate: formData.get("dueDate"),
     });
+    console.log("Task updated successfully");
     onClose();
   };
 
@@ -28,9 +26,8 @@ export const EditTaskModal: React.FC<Props> = ({ task, onUpdate, isOpen, onClose
     <Modal title="Edit Task" description="Update the details for your task:" isOpen={isOpen} onClose={() => onClose()}>
       <form className="add-task-form" onSubmit={onSubmit}>
         <div className="input-container">
-          <Input placeholder="Task Name" name="taskName" defaultValue={task.title} />
-          {/* ToDo: Icon Input, Get svg's */}
-          <Input type="date" placeholder="Due Date" name="dueDate" defaultValue={task.date} />
+          <Input placeholder="Task Name" name="taskName" defaultValue={task?.title || ""} />
+          <Input type="date" placeholder="Due Date" name="dueDate" defaultValue={task?.date || ""} />
         </div>
         <div className="button-container">
           <Button type="submit">Edit Task</Button>

@@ -6,12 +6,9 @@ import type { Task } from "@/types/TaskManager.types";
 
 interface Props {
   task: Task;
-  deleteTask: (taskId: string) => void;
-  updateTask: (taskId: string, patch: Partial<Task>) => void;
-  toggleStatus: (taskId: string) => void;
 }
 
-export const Row: React.FC<Props> = ({ task, deleteTask, updateTask, toggleStatus }) => {
+export const Row: React.FC<Props> = ({ task }) => {
   return (
     <tr>
       <td>{task.date}</td>
@@ -25,9 +22,9 @@ export const Row: React.FC<Props> = ({ task, deleteTask, updateTask, toggleStatu
       </td>
       <td>
         <div className="actions-cell">
-          <EditTask task={task} updateTask={updateTask} />
-          <DeleteTask taskId={task.taskId} deleteTask={deleteTask} />
-          <ToggleTaskStatus taskId={task.taskId} toggleStatus={toggleStatus} />
+          <EditTask task={task} />
+          <DeleteTask />
+          <ToggleTaskStatus />
         </div>
       </td>
     </tr>

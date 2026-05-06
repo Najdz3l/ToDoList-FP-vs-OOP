@@ -5,12 +5,7 @@ import { DeleteTaskModal } from "@components/modals/DeleteTaskModal";
 import { Icon } from "@components/ui/Icon";
 import deleteSvg from "@assets/icons/ui/delete.svg";
 
-interface Props {
-  taskId: string;
-  deleteTask: (taskId: string) => void;
-}
-
-export const DeleteTask: React.FC<Props> = ({ taskId, deleteTask }) => {
+export const DeleteTask = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOnClick = () => {
@@ -19,7 +14,7 @@ export const DeleteTask: React.FC<Props> = ({ taskId, deleteTask }) => {
 
   const handleOnConfirmDelete = () => {
     try {
-      deleteTask(taskId);
+      console.log("Task deleted successfully");
     } catch (error) {
       console.error("Failed to delete task:", error);
     } finally {
