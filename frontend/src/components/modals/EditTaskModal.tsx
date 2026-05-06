@@ -27,14 +27,10 @@ export const EditTaskModal: React.FC<Props> = ({ task, onUpdate, isOpen, onClose
   return (
     <Modal title="Edit Task" description="Update the details for your task:" isOpen={isOpen} onClose={() => onClose()}>
       <form className="add-task-form" onSubmit={onSubmit}>
-        <div className="input-container">
-          <Input placeholder="Task Name" name="taskName" defaultValue={task.title} />
-          {/* ToDo: Icon Input, Get svg's */}
-          <Input type="date" placeholder="Due Date" name="dueDate" defaultValue={task.date} />
-        </div>
-        <div className="button-container">
-          <Button type="submit">Edit Task</Button>
-        </div>
+        <Input placeholder="Task Name" name="taskName" defaultValue={task.title} />
+        {/* ToDo: Icon Input, Get svg's */}
+        <Input type="date" placeholder="Due Date" name="dueDate" defaultValue={task.date} />
+        <Button type="submit">Edit Task</Button>
       </form>
     </Modal>
   );

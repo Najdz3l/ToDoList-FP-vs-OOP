@@ -46,18 +46,14 @@ export const AddTaskModal: React.FC<Props> = ({ isOpen, onClose, onConfirm }) =>
       onClose={() => onClose()}
     >
       <form className="add-task-form" onSubmit={onSubmit}>
-        <div className="input-container">
-          <Input placeholder="Task Name" name="taskName" />
-          <Input
-            type="date"
-            placeholder="Due Date"
-            name="dueDate"
-            defaultValue={new Date().toISOString().split("T")[0]}
-          />
-        </div>
-        <div className="button-container">
-          <Button type="submit">Add Task</Button>
-        </div>
+        <Input placeholder="Task Name" name="taskName" />
+        <Input
+          type="date"
+          placeholder="Due Date"
+          name="dueDate"
+          defaultValue={new Date().toISOString().split("T")[0]}
+        />
+        <Button type="submit">Add Task</Button>
       </form>
     </Modal>
   );

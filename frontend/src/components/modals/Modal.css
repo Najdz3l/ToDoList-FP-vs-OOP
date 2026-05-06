@@ -36,10 +36,6 @@
   color: var(--text);
 }
 
-.modal-header h3 {
-  margin: 0;
-}
-
 .modal-close {
   background: transparent;
   border: none;
@@ -65,26 +61,4 @@
   display: flex;
   gap: 12px;
   justify-content: center;
-}
-
-.button-container {
-  margin-top: 16px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.input-container {
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  .input {
-    min-width: 0;
-    flex: 1;
-  }
-}
-
-.input[type="checkbox"] {
-  width: auto;
-  min-width: 0;
-  margin-right: 8px;
 }

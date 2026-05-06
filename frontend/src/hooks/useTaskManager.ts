@@ -1,32 +1,27 @@
 import { useEffect, useState } from "react";
 import type { NewTaskPayload, Task, TaskManagerExportFormat } from "@/types/TaskManager.types";
-import type { TaskManager } from "@/types/TaskManager.types";
+import { TaskManager } from "@/services/TaskManager";
 import { useTaskManagerContext } from "@/context/TaskManagerContext";
 
-/**
- * @summary Hook do korzystania z TaskManagera. Umożliwia dostęp do listy zadań i operacji na nich.
- * @param manager Opcjonalny TaskManager. Jeśli nie zostanie podany, hook użyje TaskManagera z kontekstu.
- * @returns Obiekt z listą zadań i funkcjami do ich modyfikacji.
- */
 export const useTaskManager = (manager?: TaskManager) => {
+  // Jeśli nie podano managera, pobierz go z kontekstu
   const resolvedManager = manager ?? useTaskManagerContext();
 
-  // Stan lokalny do przechowywania aktualnej listy zadań
   const [tasks, setTasks] = useState<Task[]>(() => resolvedManager.getTasks());
 
   useEffect(() => {
-    // Subskrybuj się do zmian w TaskManagerze i aktualizuj lokalny stan
-    const unsub = resolvedManager.subscribe((next) => setTasks(next));
-
-    // Pobierz aktualną listę zadań przy montowaniu komponentu
-    setTasks(resolvedManager.getTasks());
-
-    // Odsubskrybuj się przy odmontowywaniu komponentu, aby uniknąć wycieków pamięci
-    return unsub;
+    const unsubscribe = resolvedManager.subscribe(setTasks);
+    return unsubscribe;
   }, [resolvedManager]);
 
-  // Zwracamy tylko listę zadań oraz funkcje do jej modyfikacji.
-  // Ukrywamy bezpośredni dostęp do TaskManagera, aby wymusić korzystanie z udostępnionych metod.
+  /** Udostępnia metody do manipulacji zadaniami:
+   * tasks: Aktualna lista zadań
+   * addTask: Dodaj zadanie
+   * deleteTask: Usuń zadanie
+   * updateTask: Zaktualizuj zadanie
+   * clearTasks: Wyczyść zadania
+   * exportTasks: Eksportuj zadania w określonym formacie
+   */
   return {
     tasks,
     addTask: (payload: NewTaskPayload) => resolvedManager.addTask(payload),

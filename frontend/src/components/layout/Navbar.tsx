@@ -17,11 +17,15 @@ export const Navbar = () => {
 
   return (
     <nav>
-      <AddTask addTask={addTask} />
-      <ClearTasks clearTasks={clearTasks} />
+      <div className="navbar-actions">
+        <AddTask addTask={addTask} />
+        <ClearTasks clearTasks={clearTasks} />
+      </div>
 
-      <Filters filterOptions={filterOptions} />
-      <Export />
+      <div className="navbar-controls">
+        <Filters filterOptions={filterOptions} />
+        <Export />
+      </div>
     </nav>
   );
 };

@@ -44,21 +44,12 @@ export const ClearTasksModal: React.FC<Props> = ({ isOpen, onClose, onConfirm })
       <form className="clear-tasks-form" onSubmit={onSubmit}>
         <div>
           {/* ToDo, include active tasks */}
-          <Input
-            type="checkbox"
-            id="understandConsequences"
-            name="understandConsequences"
-            onClick={onClickCheckboxHandler}
-            ref={checkboxRef}
-          />
-          <label htmlFor="understandConsequences">I understand the consequences</label>
+          <label>I understand the consequences</label>
+          <Input type="checkbox" name="understandConsequences" onClick={onClickCheckboxHandler} ref={checkboxRef} />
         </div>
-
-        <div className="button-container">
-          <Button type="submit" disabled={buttonDisabled}>
-            Yes, Clear Completed
-          </Button>
-        </div>
+        <Button type="submit" disabled={buttonDisabled}>
+          Yes, Clear Completed
+        </Button>
       </form>
     </Modal>
   );

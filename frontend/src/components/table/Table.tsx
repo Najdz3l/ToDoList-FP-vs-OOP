@@ -9,10 +9,6 @@ export const Table = () => {
   return (
     <main>
       <table>
-        <col width="130px"></col>
-        <col width="100%"></col>
-        <col width="130px"></col>
-        <col width="420px"></col>
         <thead>
           <tr>
             <th>Due Date</th>

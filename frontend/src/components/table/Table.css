@@ -5,20 +5,11 @@ main {
 }
 
 table {
-  table-layout: fixed;
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 8px;
   text-align: left;
   min-width: 768px;
-}
-
-thead {
-  text-align: center;
-  th:last-child {
-    padding-left: 24px;
-    text-align: left;
-  }
 }
 
 th {
@@ -42,11 +33,12 @@ td {
     box-shadow 0.2s,
     background-color 0.2s;
 
-  .actions-cell {
+  &.actions-cell {
     display: flex;
     gap: 1.25em;
     align-items: center;
     justify-content: space-evenly;
+    height: 100%;
   }
 }
 
@@ -70,6 +62,7 @@ tbody tr:hover td {
   border-top-color: var(--border);
   border-bottom-color: var(--border);
   transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
 tbody tr:hover td:first-child {

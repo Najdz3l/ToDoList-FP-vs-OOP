@@ -3,24 +3,19 @@ nav {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 16px;
   margin-bottom: 32px;
   padding: 0 24px;
   box-sizing: border-box;
 }
 
-.filters {
-  flex-grow: 1;
-}
-
-.filters .search-group {
-  flex-grow: 1;
-}
-
-.filters input {
-  width: 100%;
-  min-width: 0;
+.navbar-actions,
+.navbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .filters,
