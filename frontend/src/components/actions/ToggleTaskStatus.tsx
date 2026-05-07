@@ -1,7 +1,6 @@
 import "./ToggleTaskStatus.css";
 import { Button } from "@components/ui/Button";
 import noteDoneSvg from "@assets/icons/ui/note-done.svg";
-// import noteUndoneSvg from "@assets/icons/ui/note-undone.svg";
 import { Icon } from "@components/ui/Icon";
 
 interface Props {
