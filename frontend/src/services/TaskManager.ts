@@ -11,6 +11,11 @@ import { generateUniqueId } from "@/utils/generateUniqueId";
 // Zbiór subskrybentów, którzy chcą być powiadamiani o zmianach w liście zadań
 const subs = new Set<(tasks: Task[]) => void>();
 
+/**
+ * @summary Sortuje zadania po statusie i dacie.
+ * @param tasks - Lista zadań do posortowania.
+ * @returns Posortowana lista zadań.
+ */
 const sortByStatusAndDate = (tasks: Task[]): Task[] => {
   return tasks.sort((a, b) => {
     if (a.status === b.status) {
@@ -20,34 +25,48 @@ const sortByStatusAndDate = (tasks: Task[]): Task[] => {
   });
 };
 
-// Wyślij aktualny stan do wszystkich subskrybentów
+/**
+ * @summary Powiadamia subskrybentów o zmianach listy zadań.
+ * @returns void
+ */
 const notify = (): void => {
   const snapshot = getTasks();
   subs.forEach((callback) => callback(snapshot));
 };
 
-// Zwraca kopię obecnej listy zadań
+/**
+ * @summary Zwraca posortowaną listę zadań.
+ * @returns Posortowana lista wszystkich zadań.
+ */
 export const getTasks = (): Task[] => {
   const task: Task[] = taskListStore.getTasks();
   return sortByStatusAndDate(task);
 };
 
-// Ustawia listę zadań i powiadamia subskrybentów
+/**
+ * @summary Ustawia nową listę i powiadamia subskrybentów.
+ * @param  next - Nowa lista zadań.
+ * @returns void
+ */
 export const setTasks = (next: Task[]): void => {
   taskListStore.setTasks(next);
   notify();
 };
 
-// Inicjalizacja store'a
+/**
+ * @summary Inicjalizuje store zadań.
+ * @param - Początkowa lista zadań.
+ * @returns void
+ */
 export const initTaskStore = (initial: Task[] = []) => {
   taskListStore.setTasks(initial);
   notify();
 };
 
 /**
- * @summary Dodaje nowe zadanie i powiadamia subskrybentów.
- * @param {{title: string, date: string}} payload - Dane zadania bez `taskId`.
- * @returns {Task} Dodane zadanie z wygenerowanym `taskId` i domyślnym `status`.
+ * @summary Dodaje nowe zadanie.
+ * @param payload - Dane zadania (tytuł, data).
+ * @returns Nowo dodane zadanie.
  */
 export const addTask = (payload: NewTaskPayload): Task => {
   const task: Task = { ...payload, taskId: generateUniqueId(), status: "Active" };
@@ -55,14 +74,30 @@ export const addTask = (payload: NewTaskPayload): Task => {
   return task;
 };
 
+/**
+ * @summary Usuwa zadanie.
+ * @param taskId - ID zadania.
+ * @returns void
+ */
 export const deleteTask = (taskId: string): void => {
   setTasks(getTasks().filter((task) => task.taskId !== taskId));
 };
 
+/**
+ * @summary Aktualizuje pola zadania.
+ * @param taskId - ID zadania.
+ * @param patch - Pola do aktualizacji.
+ * @returns void
+ */
 export const updateTask = (taskId: string, patch: Partial<Task>): void => {
   setTasks(getTasks().map((task) => (task.taskId === taskId ? { ...task, ...patch } : task)));
 };
 
+/**
+ * @summary Przełącza status zadania.
+ * @param taskId - ID zadania.
+ * @returns void
+ */
 export const toggleTaskStatus = (taskId: string): void => {
   setTasks(
     getTasks().map((task) =>
@@ -71,10 +106,20 @@ export const toggleTaskStatus = (taskId: string): void => {
   );
 };
 
+/**
+ * @summary Usuwa wszystkie zadania.
+ * @returns void
+ */
 export const clearTasks = (): void => {
   setTasks([]);
 };
 
+/**
+ * @summary Eksportuje zadania w wybranym formacie.
+ * @description Format eksportu: 'json', 'csv' lub 'txt'.
+ * @param format - Format eksportu.
+ * @returns Zawartość, typ MIME i nazwę pliku.
+ */
 export const exportTasks = (format: TaskManagerExportFormat): TaskManagerExportResult => {
   const timestamp = new Date().toISOString().split("T")[0];
   const filenameBase = `tasks-${timestamp}`;
@@ -106,7 +151,12 @@ export const exportTasks = (format: TaskManagerExportFormat): TaskManagerExportR
   return { content: `${txtHeader}\n${txtBody}`, mime: "text/plain", filename: `${filenameBase}.txt` };
 };
 
-// Subskrypcja: zwraca funkcję unsubscribe
+/**
+ * @summary Rejestruje callback na zmianę listy zadań.
+ * @description Callback wywoływany natychmiast z aktualnym stanem.
+ * @param callback - Funkcja wywoływana ze zmienioną listą.
+ * @returns Funkcja unsubscribe.
+ */
 export const subscribe = (callback: (tasks: Task[]) => void): (() => void) => {
   subs.add(callback);
   // Od razu wywołujemy z aktualnym stanem
@@ -114,7 +164,9 @@ export const subscribe = (callback: (tasks: Task[]) => void): (() => void) => {
   return () => subs.delete(callback);
 };
 
-// Eksport obiektu zgodnego z typem TaskManager dla wygodnego importu
+/**
+ * @summary Obiekt API zarządzania zadaniami.
+ */
 export const taskManager: TaskManager = {
   subscribe,
   getTasks,
