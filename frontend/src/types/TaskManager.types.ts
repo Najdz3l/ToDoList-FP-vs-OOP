@@ -20,7 +20,6 @@ export type TaskManagerExportResult = {
   filename: string;
 };
 
-// ToDo: Use this
 export type TaskManager = {
   subscribe: (cb: (tasks: Task[]) => void) => () => void;
   getTasks: () => Task[];

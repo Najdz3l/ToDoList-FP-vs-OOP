@@ -34,7 +34,7 @@ export const FiltersSearch = () => {
       return;
     }
 
-    // Search on Enter key
+    // Wyszukaj po naciśnięciu klawisza Enter
     if (event.key === "Enter") {
       if (!inputRef.current) return;
 
@@ -43,18 +43,18 @@ export const FiltersSearch = () => {
         handleSearchOnInput();
       }
     }
-    // Focus on search input
+    // Daj focus na pole wyszukiwania po naciśnięciu klawisza "/"
     else if (event.key === "/") {
       if (!inputRef.current) return;
 
-      // Allow '/' to be insert into searchInput
+      // Pozwól na wpisanie "/" w pole wyszukiwania
       if (event.target === inputRef.current) {
         return;
       }
       event.preventDefault();
       inputRef.current.focus();
     }
-    // Leave search input
+    // Po naciśnięciu klawisza Escape, jeśli focus jest na polu wyszukiwania, wyjdź z niego
     else if (event.key === "Escape") {
       if (!inputRef.current) return;
 

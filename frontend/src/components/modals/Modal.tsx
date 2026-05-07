@@ -69,7 +69,7 @@ export const Modal: React.FC<Props> = ({ children, title, description, isOpen, o
     if (!keybinds.includes(keyPressed)) {
       return;
     }
-    e.stopPropagation(); // Block key events from FiltersSearch component
+    e.stopPropagation(); // Blokuje zdarzenia klawiszy z komponentu FiltersSearch
     onClose();
   };
 
