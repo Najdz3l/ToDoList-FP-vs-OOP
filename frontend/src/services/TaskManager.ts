@@ -31,11 +31,26 @@ export class TaskManager {
   }
 
   /**
+   * @summary Sortuje zadania po statusie i dacie.
+   * @param tasks - Lista zadań do posortowania.
+   * @returns Posortowana lista zadań.
+   */
+  private sortByStatusAndDate = (tasks: Task[]): Task[] => {
+    return tasks.sort((a, b) => {
+      if (a.status === b.status) {
+        return new Date(a.date).getTime() - new Date(b.date).getTime();
+      }
+      return a.status === "Active" ? -1 : 1;
+    });
+  };
+
+  /**
    * @summary Zwraca aktualną listę zadań
    * @returns Tablica zadań, gdzie każde zadanie zawiera taskId, title, date i status
    */
   getTasks(): Task[] {
-    return [...this.tasks];
+    const sorted = this.sortByStatusAndDate(this.tasks);
+    return [...sorted];
   }
 
   /**
